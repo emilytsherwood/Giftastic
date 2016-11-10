@@ -1,63 +1,69 @@
 // My food array
-var food = ['pizza', 'cheeseburger', 'spaghetti', 
-'pineapples', 'fries', 'donuts', 'pancakes', 'jello', 'pie', 'tacos'];
+var food = ['pizza', 'cheeseburger', 'spaghetti',
+    'pineapples', 'fries', 'donuts', 'pancakes', 'jello', 'pie', 'tacos'
+];
 
-function createButtons(){
-	// Have to clear the previous gifs before a new button/gif is clicked/created
-	$('#buttonsHere').empty();
-	// Loops through the food array
-	for (var i = 0; i < food.length; i++) {
-	var b = $('<button>');
-	b.addClass('food');
-	b.attr('data-food', food[i]);
-	b.text(food[i]);
-	$('#buttonsHere').append(b);
-	}
+function createButtons() {
+    // Have to clear the previous gifs before a new button/gif is clicked/created
+    $('#buttonsHere').empty();
+    // Loops through the food array
+    for (var i = 0; i < food.length; i++) {
+        var b = $('<button>');
+        b.addClass('food');
+        b.attr('data-food', food[i]);
+        b.text(food[i]);
+        $('#buttonsHere').append(b);
+    }
 }
 
 createButtons();
 
 
 // Creating an on-click function
-$('.food').on('click', function(){
-	var foodItem = $(this).data('food');// Grabbing the data-attribute assigned to the button
+function clickingFoodItem() {
+    $('.food').on('click', function() {
+        var foodItem = $(this).data('food'); // Grabbing the data-attribute assigned to the button
 
-  	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + foodItem + "&api_key=dc6zaTOxFJmzC&limit=10";
-  	//One URL for each gif in my array
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + foodItem + "&api_key=dc6zaTOxFJmzC&limit=10";
+        //One URL for each gif in my array
 
-    $.ajax({
-        url: queryURL, 
-        method: 'GET'
-    })
+        $.ajax({
+            url: queryURL,
+            method: 'GET'
+        })
 
-     .done(function(response) {
-        console.log(response);
-        var results = response.data;
+        .done(function(response) {
+            console.log(response);
+            var results = response.data;
 
- for (var i=0; i < results.length; i++) {
- 	  // var createImgDiv = $('<div class="gifPic>');
- 	  var foodImage = $('<img>');
-      foodImage.attr('src', results[i].images.fixed_height.url);
-      $('#buttonsHere').after(foodImage);
+            for (var i = 0; i < results.length; i++) {
+                // var createImgDiv = $('<div class="gifPic>');
+                var foodImage = $('<img>');
+                foodImage.attr('src', results[i].images.fixed_height.url);
+                $('#buttonsHere').after(foodImage);
+
+                var rating = results[i].rating;
+                var ratingText = $('<p>').text("Rating: " + rating);
+                $('#buttonsHere').after(ratingText);
+            }
+
+        });
+    });
 }
-});
-});
+clickingFoodItem();
 //Supposed to add a new button based on user search...not generating gifs
-$('#addGif').on('click', function(){
-	var userFoodGif = $('#foodInput').val().trim();
-	food.push(userFoodGif);
 
-	createButtons();
+$(document).on('click', '#addGif', function() {
+    var userFoodGif = $('#foodInput').val().trim();
+    food.push(userFoodGif);
 
-	return false;
+    createButtons();
+    clickingFoodItem();
+    return false;
 });
 
-
-
-
-
-
-
-// Need to create a FORM that takes user input for the gif
-// Don't forget submit button
-// Make sure to RETURN FALSE;
+//  for (var i=0; i < results.length; i++) {
+//  	  var foodImage = $('<img>');
+//       foodImage.attr('src', results[i].images.fixed_height.url);
+//       $('#buttonsHere').after(foodImage);
+// }
