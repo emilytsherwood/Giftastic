@@ -5,7 +5,6 @@ var food = ['pizza', 'cheeseburger', 'spaghetti',
 function createButtons(){
 	// Have to clear the previous gifs before a new button/gif is clicked/created
 	$('#gifsHere').empty();
-
 	// Loops through the food array
 	for (var i = 0; i < food.length; i++) {
 	var b = $('<button>');
@@ -23,7 +22,7 @@ createButtons();
 $('.food').on('click', function(){
 	var foodItem = $(this).data('food');// Grabbing the data-attribute assigned to the button
 
-  	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=dc6zaTOxFJmzC&limit=10";
+  	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + foodItem + "&api_key=dc6zaTOxFJmzC&limit=10";
   	//One URL for each gif in my array
 
     $.ajax({
@@ -35,25 +34,14 @@ $('.food').on('click', function(){
         console.log(response);
         var results = response.data;
 
-
- // for (var i=0; i < results.length; i++) {
-
- //            if (results[i].rating == "r" || results[i].rating == "pg-13")
- //            {
-
- //            }
- //            else {
-
-	  var gifDiv = $('<div class="item">');
-      var foodImage = $('<img>');
-      foodImage.attr('src');
-
-      gifDiv.append(foodImage);
-
-      $('#gifsHere').prepend(gifDiv);
-  		});
+ for (var i=0; i < results.length; i++) {
+ 	  // var createImgDiv = $('<div class="gifPic>');
+ 	  var foodImage = $('<img>');
+      foodImage.attr('src', results[i].images.fixed_height.url);
+      $('#gifsHere').after(foodImage);
+}
 });
-
+});
 
 
 
