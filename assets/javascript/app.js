@@ -4,14 +4,14 @@ var food = ['pizza', 'cheeseburger', 'spaghetti',
 
 function createButtons(){
 	// Have to clear the previous gifs before a new button/gif is clicked/created
-	$('#gifsHere').empty();
+	$('#buttonsHere').empty();
 	// Loops through the food array
 	for (var i = 0; i < food.length; i++) {
 	var b = $('<button>');
 	b.addClass('food');
 	b.attr('data-food', food[i]);
 	b.text(food[i]);
-	$('#gifsHere').append(b);
+	$('#buttonsHere').append(b);
 	}
 }
 
@@ -38,10 +38,22 @@ $('.food').on('click', function(){
  	  // var createImgDiv = $('<div class="gifPic>');
  	  var foodImage = $('<img>');
       foodImage.attr('src', results[i].images.fixed_height.url);
-      $('#gifsHere').after(foodImage);
+      $('#buttonsHere').after(foodImage);
 }
 });
 });
+//Supposed to add a new button based on user search...not generating gifs
+$('#addGif').on('click', function(){
+	var userFoodGif = $('#foodInput').val().trim();
+	food.push(userFoodGif);
+
+	createButtons();
+
+	return false;
+});
+
+
+
 
 
 
