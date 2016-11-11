@@ -18,7 +18,6 @@ function createButtons() {
 
 createButtons();
 
-
 // Creating an on-click function
 function clickingFoodItem() {
     $('.food').on('click', function() {
@@ -35,35 +34,53 @@ function clickingFoodItem() {
         .done(function(response) {
             console.log(response);
             var results = response.data;
-
+        //Emptying div before gifs are added
+        $('#gifsHere').empty();
+        	//Looping throuhg the food array
             for (var i = 0; i < results.length; i++) {
-                // var createImgDiv = $('<div class="gifPic>');
+                var CreateImageDiv = $('<div>');
+                var imageHolder = results[i].images.fixed_height.url;
+                var pause = results[i].images.fixed_height_still.url;
                 var foodImage = $('<img>');
-                foodImage.attr('src', results[i].images.fixed_height.url);
-                $('#buttonsHere').after(foodImage);
+                foodImage.attr('src', pause).attr('data-animate', imageHolder).attr('data-still', pause);
+                foodImage.attr('data-state', 'still'); 
+                $('#gifsHere').prepend(foodImage);
+                foodImage.on('click', pausingGifs);
 
                 var rating = results[i].rating;
                 var ratingText = $('<p>').text("Rating: " + rating);
-                $('#buttonsHere').after(ratingText);
-            }
 
+            $('img').append(ratingText);
+	        }
         });
     });
 }
-clickingFoodItem();
-//Supposed to add a new button based on user search...not generating gifs
 
+clickingFoodItem();
+
+//Creating new button based on user input
 $(document).on('click', '#addGif', function() {
     var userFoodGif = $('#foodInput').val().trim();
     food.push(userFoodGif);
 
     createButtons();
+    //Generates gifs when clicked on
     clickingFoodItem();
+    pausingGifs();
     return false;
 });
 
-//  for (var i=0; i < results.length; i++) {
-//  	  var foodImage = $('<img>');
-//       foodImage.attr('src', results[i].images.fixed_height.url);
-//       $('#buttonsHere').after(foodImage);
-// }
+//Creating the ability to pause gifs
+function pausingGifs(){
+	var gifState = $(this).attr('data-state');
+	console.log(gifState);
+
+	if (gifState === 'still'){
+		$(this).attr('data-animate');
+		$(this).attr('data-state', 'animate');
+	} else {
+		$(this).attr('data-still');
+		$(this).attr('data-state', 'still');
+	}
+}
+
