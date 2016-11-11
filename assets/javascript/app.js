@@ -42,7 +42,7 @@ function clickingFoodItem() {
                 var imageHolder = results[i].images.fixed_height.url; //Link for the animated gif
                 var pause = results[i].images.fixed_height_still.url; //Link for the still gif
                 var foodImage = $('<img>');
-                foodImage.attr('src', imageHolder).attr('data-animate', imageHolder).attr('data-still', pause);
+                foodImage.attr('src', pause).attr('data-animate', imageHolder).attr('data-still', pause);
                 foodImage.attr('data-state', 'still'); 
                 $('#gifsHere').prepend(foodImage);
                 foodImage.on('click', pausingGifs);
