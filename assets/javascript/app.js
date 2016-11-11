@@ -50,7 +50,7 @@ function clickingFoodItem() {
                 var rating = results[i].rating;
                 var ratingText = $('<p>').text("Rating: " + rating);
 
-            $('img').append(ratingText);
+            	$('#gifsHere').prepend(ratingText);
 	        }
         });
     });
