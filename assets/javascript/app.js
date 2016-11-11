@@ -39,10 +39,10 @@ function clickingFoodItem() {
         	//Looping throuhg the food array
             for (var i = 0; i < results.length; i++) {
                 var CreateImageDiv = $('<div>');
-                var imageHolder = results[i].images.fixed_height.url;
-                var pause = results[i].images.fixed_height_still.url;
+                var imageHolder = results[i].images.fixed_height.url; //Link for the animated gif
+                var pause = results[i].images.fixed_height_still.url; //Link for the still gif
                 var foodImage = $('<img>');
-                foodImage.attr('src', pause).attr('data-animate', imageHolder).attr('data-still', pause);
+                foodImage.attr('src', imageHolder).attr('data-animate', imageHolder).attr('data-still', pause);
                 foodImage.attr('data-state', 'still'); 
                 $('#gifsHere').prepend(foodImage);
                 foodImage.on('click', pausingGifs);
@@ -70,17 +70,18 @@ $(document).on('click', '#addGif', function() {
     return false;
 });
 
-//Creating the ability to pause gifs
+//Creating the function to pause gifs
 function pausingGifs(){
 	var gifState = $(this).attr('data-state');
 	console.log(gifState);
 
 	if (gifState === 'still'){
-		$(this).attr('data-animate');
+		$(this).attr('src', $(this).data('animate'));
 		$(this).attr('data-state', 'animate');
 	} else {
-		$(this).attr('data-still');
+		$(this).attr('src', $(this).data('still'));
 		$(this).attr('data-state', 'still');
 	}
 }
+
 
