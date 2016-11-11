@@ -1,6 +1,6 @@
 // My food array
-var food = ['pizza', 'cheeseburger', 'spaghetti',
-    'pineapples', 'fries', 'donuts', 'pancakes', 'jello', 'pie', 'tacos'
+var food = ['Pizza', 'Cheeseburger', 'Spaghetti',
+    'Pineapples', 'Fries', 'Donuts', 'Pancakes', 'Jello', 'Pie', 'Tacos'
 ];
 
 function createButtons() {
@@ -38,7 +38,6 @@ function clickingFoodItem() {
         $('#gifsHere').empty();
         	//Looping throuhg the food array
             for (var i = 0; i < results.length; i++) {
-                var CreateImageDiv = $('<div>');
                 var imageHolder = results[i].images.fixed_height.url; //Link for the animated gif
                 var pause = results[i].images.fixed_height_still.url; //Link for the still gif
                 var foodImage = $('<img>');
@@ -48,7 +47,7 @@ function clickingFoodItem() {
                 foodImage.on('click', pausingGifs);
 
                 var rating = results[i].rating;
-                var ratingText = $('<p>').text("Rating: " + rating);
+                var ratingText = $('<p class="p-styles">').text("Rating: " + rating);
 
             	$('#gifsHere').prepend(ratingText);
 	        }
