@@ -22,7 +22,7 @@ function clickingFoodItem() {
     $('.food').on('click', function() {
         var foodItem = $(this).data('food'); //Grabbing the data-attribute assigned to the button
 
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + foodItem + "&api_key=dc6zaTOxFJmzC&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + foodItem + "&api_key=dc6zaTOxFJmzC&limit=10";
         //One URL for each gif in my array
 
         $.ajax({
