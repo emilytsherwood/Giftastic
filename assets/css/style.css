@@ -1,25 +1,57 @@
+html {
+	background-color: #5D6D7E;
+}
+
+body {
+	background-color: #5D6D7E;
+}
+
 #styling {
 	text-align: center;
 	font-family: 'Indie Flower', cursive;
 	font-size: 18px;
+	height: 115px;
 }
 
 .header-styling {
 	text-align: center;
 	font-family: 'Luckiest Guy', cursive;
 	font-size: 50px;
+	margin-top: 10px;
+	padding-top: 35px;
+	padding-bottom: 0px;
+}
+
+.page-header {
+	margin-bottom: 0px;
+	background-color: #ffffb3;
 }
 
 #addGif {
 	margin-top: 10px;
+	background-color: #ff66b0;
 }
 
 .food {
 	margin-bottom: 10px;
+	margin-right: 5px;
+	background-color: pink;
+}
+
+.food-pic {
+	margin-top: 0px;
+	margin-bottom: 10px;
+}
+
+#gifsHere {
+	background-color: #5D6D7E;
+	margin-top: 0px;
 }
 
 .p-styles {
-	margin-top: 15px;
+	margin-top: 20px;
 	margin-bottom: 0px;
 	border-bottom: 0px;
+	font-weight: 900;
+	color: pink;
 }

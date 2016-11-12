@@ -1,12 +1,11 @@
 // My food array
 var food = ['Pizza', 'Cheeseburger', 'Spaghetti',
-    'Pineapples', 'Fries', 'Donuts', 'Pancakes', 'Jello', 'Pie', 'Tacos'
-];
+    'Pineapples', 'Fries', 'Donuts', 'Pancakes', 'Jello', 'Pie', 'Tacos'];
 
 function createButtons() {
-    // Have to clear the previous gifs before a new button/gif is clicked/created
+    //To ensure that the buttons don't all repeat when a new button is created
     $('#buttonsHere').empty();
-    // Loops through the food array
+    //Loops through the food array
     for (var i = 0; i < food.length; i++) {
         var b = $('<button>');
         b.addClass('food');
@@ -15,13 +14,13 @@ function createButtons() {
         $('#buttonsHere').append(b);
     }
 }
-
+//Will create buttons for every item in the array
 createButtons();
 
-// Creating an on-click function
+//Creating an on-click function
 function clickingFoodItem() {
     $('.food').on('click', function() {
-        var foodItem = $(this).data('food'); // Grabbing the data-attribute assigned to the button
+        var foodItem = $(this).data('food'); //Grabbing the data-attribute assigned to the button
 
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + foodItem + "&api_key=dc6zaTOxFJmzC&limit=10";
         //One URL for each gif in my array
@@ -34,9 +33,10 @@ function clickingFoodItem() {
         .done(function(response) {
             console.log(response);
             var results = response.data;
+
         //Emptying div before gifs are added
         $('#gifsHere').empty();
-        	//Looping throuhg the food array
+        	//Looping through the food array
             for (var i = 0; i < results.length; i++) {
                 var imageHolder = results[i].images.fixed_height.url; //Link for the animated gif
                 var pause = results[i].images.fixed_height_still.url; //Link for the still gif
@@ -45,10 +45,10 @@ function clickingFoodItem() {
                 foodImage.attr('data-state', 'still'); 
                 $('#gifsHere').prepend(foodImage);
                 foodImage.on('click', pausingGifs);
-
+                //Adding the rating
                 var rating = results[i].rating;
                 var ratingText = $('<p class="p-styles">').text("Rating: " + rating);
-
+                //Putting the ratings above the gifs
             	$('#gifsHere').prepend(ratingText);
 	        }
         });
@@ -61,10 +61,11 @@ clickingFoodItem();
 $(document).on('click', '#addGif', function() {
     var userFoodGif = $('#foodInput').val().trim();
     food.push(userFoodGif);
-
+    //Creates the new button
     createButtons();
     //Generates gifs when clicked on
     clickingFoodItem();
+    //Pauses or unpauses gifs when clicked on
     pausingGifs();
     return false;
 });
