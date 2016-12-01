@@ -1,4 +1,4 @@
-# giftastic
+# Giftastic
 Week 6 Assignment
 
 Heroku:
